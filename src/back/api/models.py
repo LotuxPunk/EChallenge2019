@@ -12,7 +12,6 @@ class Group(models.Model):
 	teacher = models.OneToOneField(Teacher, on_delete = models.CASCADE)
 
 class Student(models.Model):
-	email = models.EmailField(max_length = 100)
-	pw = models.CharField(max_length = 30)
+	user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 	first_name = models.CharField(max_length = 30)
 	group = models.OneToOneField(Group, on_delete = models.CASCADE)
