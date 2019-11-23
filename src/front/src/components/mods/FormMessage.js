@@ -7,13 +7,10 @@ export default class FormMessage extends Component {
     }
 
     createMessage = () => {
-        const { addMessage, pseudo } = this.props
-    
-        const message = {
-          pseudo,
-          message: this.state.message
-        }
-        addMessage(message);
+        const { sendMessage } = this.props
+
+        //addMessage(message);
+        sendMessage(this.state.message);
         this.setState({ message: '', length:0 })
     }
 

@@ -7,6 +7,7 @@ export default class Login extends Component {
 
     state = {
         login:'',
+        lang:'',
         goToChat:false
     }
 
@@ -21,7 +22,7 @@ export default class Login extends Component {
 
     render() {
         if(this.state.goToChat){
-            return <Redirect to={/app/+this.state.login}/>;
+            return <Redirect to={/app/+this.state.login+'/'+this.state.lang}/>;
         }
         return (
             <Fragment>
