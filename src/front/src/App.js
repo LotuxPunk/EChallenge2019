@@ -5,13 +5,10 @@ import Message from './components/mods/Message'
 import FormMessage from './components/mods/FormMessage';
 
 class App extends Component{
+  chatSocket = new WebSocket("ws://127.0.0.1:8000/ws/chat/test/")
   state = {
     messages: {},
-    pseudo: this.props.match.params.pseudo
-  }
-
-  componentDidMount = () => {
-    this.addMessage({message:'test', pseudo:'Pedro'})
+    pseudo: this.props.match.params.pseudo,
   }
 
   addMessage = message => {
@@ -24,6 +21,27 @@ class App extends Component{
     }    
 
     this.setState({ messages })
+  }
+
+  componentDidMount() {
+    this.chatSocket.onopen = () => {
+      console.log("connected")
+    }
+    this.chatSocket.onmessage = (e) => {
+      let data = JSON.parse(e.data);
+      console.log(data["user"])
+      this.addMessage({
+        message: data['message'],
+        pseudo: "Pedro"
+      })
+    }
+  }
+
+
+  sendMessage = message => {
+    this.chatSocket.send(JSON.stringify({
+      'message':message
+    }))
   }
 
   isUser = pseudo => pseudo === this.state.pseudo
@@ -45,7 +63,7 @@ class App extends Component{
                 <div className='messages' ref={this.messagesRef}>
                   { messages }
                 </div>
-                <FormMessage addMessage={this.addMessage} pseudo={this.state.pseudo}/>
+                <FormMessage addMessage={this.addMessage} pseudo={this.state.pseudo} sendMessage={this.sendMessage}/>
               </div>
             </div>
             <div className='col-3 bg-light'>
