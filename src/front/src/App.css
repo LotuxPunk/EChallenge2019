@@ -20,3 +20,70 @@
 .App-link {
   color: #09d3ac;
 }
+
+.message {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.message > * {
+	padding: 5px 10px;
+	max-width: 75%;
+	border-radius: 2px;
+	margin: 10px 0;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+}
+
+.not-user-message {
+	background-color: #eceff1;
+	align-self: flex-start;
+	position: relative;
+}
+
+.not-user-message:after {
+	content: '';
+	position: absolute;
+	top: -7px;
+	left: 10px;
+	width: 0;
+	border-width: 0 10px 7px 0;
+	border-style: solid;
+	border-color: #eceff1 transparent;
+}
+
+.user-message {
+	background-color: #2196F3;
+	color: #fff;
+	align-self: flex-end;
+	position: relative;
+}
+
+.user-message:after {
+	content: '';
+	position: absolute;
+	bottom: -7px;
+	right: 10px;
+	width: 0;
+	border-width: 7px 0 0 10px;
+	border-style: solid;
+	border-color: #2196F3 transparent;
+}
+
+.box {
+	margin: auto;
+	display:flex;
+	justify-content: center;
+ 	flex-wrap: wrap;
+ 	align-items: flex-end;
+	width: 100%;
+	max-width: 500px;
+	height: calc(100vh - 100px);
+	padding: 50px 0;
+	/*border: 5px solid purple;*/
+}
+
+.box > * {
+	width: 100%;
+}

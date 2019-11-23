@@ -9,27 +9,27 @@ export default class FormRegistration extends Component {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label for="last_name">Last name</label>
-                    <input onChange={handleChange} type="text" className="form-control" id="last_name" name="last_name"/>
+                    <input onChange={handleChange} type="text" className="form-control" id="last_name" name="last_name" autoFocus required/>
                 </div>
                 <div className="form-group">
                     <label for="first_name">First name</label>
-                    <input onChange={handleChange} type="text" className="form-control" id="first_name" name="first_name"/>
+                    <input onChange={handleChange} type="text" className="form-control" id="first_name" name="first_name" required/>
                 </div>
                 <div className="form-group">
                     <label for="username">Username</label>
-                    <input onChange={handleChange} type="text" className="form-control" id="username" name="username"/>
+                    <input onChange={handleChange} type="text" className="form-control" id="username" name="username" required/>
                 </div>
                 <div className="form-group">
                     <label for="school_name">School name</label>
-                    <input onChange={handleChange} type="text" className="form-control" id="school_name" name="school_name"/>
+                    <input onChange={handleChange} type="text" className="form-control" id="school_name" name="school_name" required/>
                 </div>
                 <div className="form-group">
                     <label for="email">Email address</label>
-                    <input onChange={handleChange} type="email" className="form-control" id="email" name="email"/>
+                    <input onChange={handleChange} type="email" className="form-control" id="email" name="email" required/>
                 </div>
                 <div className="form-group">
                     <label for="password">Password</label>
-                    <input onChange={handleChange} type="password" className="form-control" id="password" name="password"/>
+                    <input onChange={handleChange} type="password" className="form-control" id="password" name="password" required/>
                 </div>
                 <div className="form-group">
                     <label for="password2">Confirm password</label>
