@@ -30,22 +30,42 @@ export default class SignUp extends Component {
 
         //const array = new Array(this.state.username, this.state.email, this.state.first_name, this.state.last_name, this.state.school_name, this.state.password);
         //console.log(JSON.stringify(array))
-        fetch('http://127.0.0.1:8000/api/teachers/', {
-            mode:'cors',
-            method: 'POST',
-            headers:{
-                Accept:'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: {
-                username:this.state.username,
-                email:this.state.email,
-                first_name:this.state.first_name,
-                last_name:this.state.last_name,
-                school_name:this.state.school_name,
-                password:this.state.password
-            },
-        }).then(response => console.log(response));
+        // fetch('http://127.0.0.1:8000/api/teachers/', {
+        //     "method": 'POST',
+        //     "headers":{
+        //         'Content-Type': 'application/json',
+        //     },
+        //     "body": {
+        //         "username":this.state.username,
+        //         "email":this.state.email,
+        //         "first_name":this.state.first_name,
+        //         "last_name":this.state.last_name,
+        //         "school_name":this.state.school_name,
+        //         "password":this.state.password
+        //     }
+        // }).then(response => console.log(response)).catch(error => console.log(error));
+        var data = JSON.stringify({
+                "username":this.state.username,
+                "email":this.state.email,
+                "first_name":this.state.first_name,
+                "last_name":this.state.last_name,
+                "school_name":this.state.school_name,
+                "password":this.state.password
+          });
+          
+          var xhr = new XMLHttpRequest();
+          xhr.withCredentials = true;
+          
+          xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === this.DONE) {
+              console.log(this.responseText);
+            }
+          });
+          
+          xhr.open("POST", "http://127.0.0.1:8000/api/teachers/");
+          xhr.setRequestHeader("content-type", "application/json");
+          
+          xhr.send(data);
     }
     
 
