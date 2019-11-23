@@ -44,3 +44,26 @@ class TeacherUserSerializer(serializers.Serializer):
 
     class Meta:
         fields = ['username', 'email', 'first_name', 'last_name', 'school_name', 'password']
+
+
+class StudentEmailSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    group = serializers.CharField(max_length=30)
+    class Meta:
+        fields = ['email', 'group']
+
+class StudentSignUpSerializer(serializers.Serializer):
+    code = serializers.UUIDField()
+    email = serializers.EmailField()
+    username = serializers.CharField(max_length=100, trim_whitespace=True, required=True)
+    password = serializers.CharField(required=True)
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+
+    class Meta:
+        fields = ['email', 'code']
+
+class DialogStringsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.DialogStrings
+        fields = ["text", "lang","answer", "position"]
