@@ -1,9 +1,28 @@
 import React, { Component, Fragment } from 'react'
+import { Redirect } from 'react-router-dom'
 import Form from '../mods/Form'
 import Nav from '../mods/Nav'
 
 export default class Login extends Component {
+
+    state = {
+        login:'',
+        goToChat:false
+    }
+
+    handleSubmit = event => {
+        event.preventDefault();
+        this.setState({goToChat:true});
+    }
+
+    handleChange = evt => {
+        this.setState({[evt.target.name]:evt.target.value})
+    }
+
     render() {
+        if(this.state.goToChat){
+            return <Redirect to={/app/+this.state.login}/>;
+        }
         return (
             <Fragment>
                 <Nav/>
@@ -11,9 +30,9 @@ export default class Login extends Component {
                     <div className="col-sm"></div>
                     <div className="col-sm">
                         <div className='card'>
-                            <div class="card-header">Log in</div>
+                            <div className="card-header">Log in</div>
                             <div className='card-body'>
-                                <Form/>
+                                <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
                             </div>
                         </div>
                     </div>

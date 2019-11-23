@@ -10,10 +10,9 @@ export default function Nav() {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li className="nav-item"><NavLink className="nav-link" to="/signup">Sign up</NavLink></li>
+                    <ul className="navbar-nav mr-auto">
+                        {/* <li className="nav-item"><NavLink className="nav-link" to="/signup">Sign up</NavLink></li> */}
                         <li className="nav-item"><NavLink className="nav-link" to="/login">Log in</NavLink></li>
-                        <li className="nav-item"><NavLink className="nav-link" to="/app">App</NavLink></li>
                     </ul>
                 </div>
             </nav>

@@ -7,12 +7,8 @@ export default class Form extends Component {
         return(
             <form className='form-signin' onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label for="email">Email address</label>
-                    <input onChange={handleChange} type="email" className="form-control" id="email" name="email" required autoFocus/>
-                </div>
-                <div className="form-group">
-                    <label for="password">Password</label>
-                    <input onChange={handleChange} type="password" className="form-control" id="password" name="password" required/>
+                    <label for="email">Username</label>
+                    <input onChange={handleChange} type="text" className="form-control" id="login" name="login" required autoFocus/>
                 </div>
                 <button type="submit" className="btn btn-primary">Login</button>
             </form>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 export default class FormMessage extends Component {
     state = {
@@ -7,14 +7,13 @@ export default class FormMessage extends Component {
     }
 
     createMessage = () => {
-        const { addMessage, pseudo, sendMessage } = this.props
+        const { addMessage, pseudo } = this.props
     
         const message = {
           pseudo,
           message: this.state.message
         }
-        sendMessage(this.state.message);
-        //addMessage(message);
+        addMessage(message);
         this.setState({ message: '', length:0 })
     }
 
@@ -37,11 +36,14 @@ export default class FormMessage extends Component {
 
     render() {
         return (
+          <Fragment>
             <form className='form' onSubmit={this.handleSubmit}>
                 <textarea className='form-control' value={this.state.message} onChange={this.handleChange} onKeyUp={this.handleKeyUp} autoFocus required/>
-                <div className='p-1 text-light float-left' >Lenght : { this.state.length }</div>
                 <button className='m-1 btn btn-info float-right' type='submit' >Send</button>
             </form>
+            <div className='p-1 text-light float-left' >Lenght : { this.state.length }</div>
+          </Fragment>
+            
         )
     }
 }
