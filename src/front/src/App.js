@@ -12,14 +12,18 @@ class App extends Component{
     xp:0,
     pseudo: this.props.match.params.pseudo,
     lang:this.props.match.params.lang,
+    otherIsWaiting:false,
     isWaiting:false,
     activity:{
       question:'',
+      answer:'',
       position:0
-    }
+    },
+    questions:{}
   }
 
   ws = null;
+  ws_activity = null;
 
   sendMessage = message => {
     this.ws.send(JSON.stringify({
@@ -31,11 +35,35 @@ class App extends Component{
 
   sendAnswer = message => {
     console.log("Hommage à Clément J." + message);
-    this.setState({isWaiting:true})
+    console.log(this.state.activity.answer.toString());
+    console.log(message.toString());
+    if (this.state.activity.answer.localeCompare(message.toString())) {
+      console.log("good answer!");
+      
+      if (!this.state.otherIsWaiting) {
+        this.setState({isWaiting:true})
+      } else {
+        this.setState({otherIsWaiting:false})
+        const {position} = this.state.activity;
+        const {lang} = this.state;
+        console.log(position);
+        const newPosition = position +1
+        const result = this.state.questions.filter(el => el.lang === lang).filter(el => el.position === newPosition)
+        this.setState({
+          activity:{
+            position:newPosition,
+            question:result[0].text,
+            answer:result[0].answer
+          }
+        })
+      }
+      this.ws_activity.send(JSON.stringify({"username":this.state.pseudo, "type_notif":"done"}))
+    }
+    
   }
 
   componentDidMount(){
-    this.ws = new WebSocket("ws://thewhitehusky.me:8000/ws/chat/test/");
+    this.ws = new WebSocket("ws://127.0.0.1:8000/ws/chat/test/");
     this.ws.onopen = (e) => {
         console.log("Connected");
     }
@@ -54,19 +82,52 @@ class App extends Component{
       this.setState({ messages, xp:xp+1 })
   }
 
+  this.ws_activity = new WebSocket("ws://127.0.0.1:8000/ws/rpg/test/");
+  this.ws_activity.onopen = (e) => {
+    console.log("Connected to activity");
+  }
+  this.ws_activity.onmessage = (e) => {
+    let data = JSON.parse(e.data)
+    if (this.state.pseudo === data.username) {
+      console.log("my own stuff");
+    } else if (this.state.isWaiting) {
+      console.log('other person is done, move on')
+      this.setState({isWaiting:false})
+      const {position} = this.state.activity;
+      console.log(position)
+      const newPosition = position +1
+        const {lang} = this.state;
+        const result = this.state.questions.filter(el => el.lang === lang).filter(el => el.position === newPosition)
+        this.setState({
+          activity:{
+            position:newPosition,
+            question:result[0].text,
+            answer:result[0].answer
+          }
+        })
+    } else {
+      console.log("other is waiting");
+      this.setState({otherIsWaiting:true})
+    }
+  }
+
   const {lang} = this.state;
   const {position} = this.state.activity;
 
   console.log(lang);
+  console.log(position);
 
-  fetch('http://thewhitehusky.me:8000/api/dialog_strings/')
+  fetch('http://127.0.0.1:8000/api/dialog_strings/')
   .then(resp => resp.json())
   .then(data => {
     console.log(data.results)
+    this.setState({questions:data.results});
     const result = data.results.filter(el => el.lang === lang).filter(el => el.position === position);
     this.setState({
       activity:{
-        question:result[0].text
+        question:result[0].text,
+        answer:result[0].answer,
+        position:0
       }
     })
     // console.log(result);
@@ -90,7 +151,6 @@ class App extends Component{
 
   showWaiting = () => {
     if(this.state.isWaiting){
-      document.getElementById('answerbox').disabled = true;
       return <div className='card-footer'>Waiting for your mate</div>;
     }
   }

@@ -14,17 +14,14 @@
               crossorigin="anonymous">
 </script>
 <script>
-    ws = new WebSocket("ws://thewhitehusky.me:8000/ws/chat/test/");
+    ws = new WebSocket("ws://127.0.0.1:8000/ws/rpg/test/");
     ws.onopen = (e) => {
-        ws.send(JSON.stringify({"message":"hithere","username":"pedro","learning_lan":"en"}));
+        ws.send(JSON.stringify({"username":"pedro","type_notif":"done"}))
+        console.log("message sent")
     }
     ws.onmessage = (e) => {
         let data = JSON.parse(e.data)
-        console.log(data)
-    }
-    ws_chat
-    ws_jeux.onmessage = (e) => {
-        
+    
     }
 </script>
 </html>

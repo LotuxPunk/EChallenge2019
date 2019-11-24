@@ -26,7 +26,9 @@ SECRET_KEY = '1%0w7bo6l#u779@25s=!8!2eany%$4=f4pyt3jq$b4$eg*4p!b'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'thewhitehusky.me'  
+    'thewhitehusky.me',
+    'localhost',
+    '127.0.0.1'
 ]
 
 
